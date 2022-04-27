@@ -20,15 +20,13 @@
 </template>
 
 <script>
-import provider from '../provider'
+import { mapGetters } from 'vuex'
 import NavBarLogada from './NavBarLogada.vue'
 import NavBarDeslogada from './NavBarDeslogada.vue'
 
 export default {
   computed: {
-    usuarioEstaLogado() {
-      return Boolean(provider.state.token)
-    }
+    ...mapGetters(['usuarioEstaLogado'])
   },
   components: {
     NavBarLogada,

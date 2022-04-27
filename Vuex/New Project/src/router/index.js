@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Gerentes from '../views/Gerentes.vue'
-import Home from '../views/Home.vue'
-import NovoUsuario from '../views/NovoUsuario.vue'
-import Login from '../views/Login.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -11,27 +8,44 @@ const routes = [
   {
     path: '',
     name: 'home',
-    component: Home
+    component: () => import('../views/Home.vue'),
+    meta: {
+      public: true
+    }
   },
   {
     path: '/gerentes',
     name: 'gerentes',
-    component: Gerentes
+    component:  () => import('../views/Gerentes.vue')
   },
   {
     path: '/cadastre-se',
     name: 'novo.usuario',
-    component: NovoUsuario
+    component: () => import('../views/NovoUsuario.vue'),
+    meta: {
+      public: true
+    }
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: () => import('../views/Login.vue'),
+    meta: {
+      public: true
+    }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  if(!routeTo.meta.public && !store.state.token){
+    return next({ path: '/login' })
+  }
+  next()
+  // to and from are both route objects. must call `next`.
 })
 
 export default router

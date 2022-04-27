@@ -20,6 +20,10 @@ const mutations = {
   }
 } // Sempre utilizar caixa alta nas mutations, para diferenciar.
 
+const getters = {
+  usuarioEstaLogado: state => Boolean(state.token)
+}
+
 const actions = { 
   efetuarLogin({ commit }, usuario) {
     return new Promise( (resolve, reject) => {
@@ -42,6 +46,7 @@ const actions = {
 export default new Vuex.Store({
   state: estado,
   mutations: mutations,
-  actions: actions
+  actions: actions,
+  getters: getters
   //Poderia só colocar mutations, pois o nome atribuido é o mesmo do nome da propiedade.
 })

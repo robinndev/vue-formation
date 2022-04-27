@@ -4,7 +4,7 @@ import router from './router'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import http from '@/http'
-import provider from './provider'
+import store from './store'
 
 Vue.config.devtools = true
 Vue.config.productionTip = false
@@ -12,6 +12,6 @@ Vue.prototype.$http = http
 
 new Vue({
   router,
-  store: provider,
+  store: store,
   render: h => h(App)
 }).$mount('#app')
